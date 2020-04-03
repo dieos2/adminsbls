@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Controllers;
+namespace app\controllers;
 
 use Yii;
 use app\models\Agenda;
@@ -8,11 +8,13 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\User;
+use app\models\UploadForm;
+use yii\web\UploadedFile;
 /**
  * AgendaController implements the CRUD actions for Agenda model.
  */
-class AgendasController extends Controller
+class AgendaController extends Controller
 {
     public function behaviors()
     {
@@ -61,9 +63,16 @@ class AgendasController extends Controller
     public function actionCreate()
     {
         $model = new Agenda();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $modelUpload = new UploadForm();
+        if ($model->load(Yii::$app->request->post())) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
+            $model->id_user = User::findByUsername(Yii::$app->user->identity->username)->id;
+            $model->status = 1;
+           if ($modelUpload->upload()) {
+            $model->save() ;
+           }
+                   return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

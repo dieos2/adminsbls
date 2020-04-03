@@ -8,7 +8,9 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\User;
+use app\models\UploadForm;
+use yii\web\UploadedFile;
 /**
  * NoticiaController implements the CRUD actions for Noticia model.
  */
@@ -61,8 +63,15 @@ class NoticiaController extends Controller
     public function actionCreate()
     {
         $model = new Noticia();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $modelUpload = new UploadForm();
+        if ($model->load(Yii::$app->request->post())) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
+            $model->id_user = User::findByUsername(Yii::$app->user->identity->username)->id;
+            $model->status = 1;
+           if ($modelUpload->upload()) {
+            $model->save() ;
+           }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

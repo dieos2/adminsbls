@@ -10,21 +10,13 @@ use yii\widgets\ActiveForm;
 
 <div class="noticia-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'chamada')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'id_user')->textInput() ?>
-
-    <?= $form->field($model, 'data')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'foto')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'data_pub')->textInput() ?>
+    <?= $form->field($model, 'foto')->fileInput() ?>
+   
 
     <?= $form->field($model, 'texto')->textarea(['rows' => 6]) ?>
 

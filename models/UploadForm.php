@@ -25,10 +25,10 @@ class UploadForm extends \yii\db\ActiveRecord
         ];
     }
     
-    public function upload($pasta, $nome)
+   public function upload()
     {
         if ($this->validate()) {
-            $this->imageFile->saveAs('images/'.$pasta.'/' . $nome.'.' . $this->imageFile->extension);
+            $this->imageFile->saveAs('images/uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
             return true;
         } else {
             return false;

@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\User;
 
 /**
  * CursoController implements the CRUD actions for Curso model.
@@ -62,8 +63,11 @@ class CursoController extends Controller
     {
         $model = new Curso();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->id_user = User::findByUsername(Yii::$app->user->identity->username)->id;
+            $model->status = 1;
+           $model->save() ;
+                   return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

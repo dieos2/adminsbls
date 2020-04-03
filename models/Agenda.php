@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $titulo
  * @property string $texto
+ * @property string $foto
  * @property string $data
  * @property integer $id_user
  * @property string $data_pub
@@ -33,11 +34,12 @@ class Agenda extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'texto', 'id_user', 'status'], 'required'],
+            [['titulo', 'texto', 'foto', 'id_user', 'status'], 'required'],
             [['texto'], 'string'],
             [['data', 'data_pub'], 'safe'],
             [['id_user', 'status'], 'integer'],
             [['titulo'], 'string', 'max' => 300],
+            [['foto'], 'string', 'max' => 100],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
@@ -51,6 +53,7 @@ class Agenda extends \yii\db\ActiveRecord
             'id' => 'ID',
             'titulo' => 'Titulo',
             'texto' => 'Texto',
+            'foto' => 'Foto',
             'data' => 'Data',
             'id_user' => 'Id User',
             'data_pub' => 'Data Pub',

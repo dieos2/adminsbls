@@ -36,7 +36,7 @@ class SiteController extends Controller {
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -65,8 +65,26 @@ class SiteController extends Controller {
         ];
     }
 
-    public function actionIndex() {
+     public function actionUpload()
+    {
+        $model = new UploadForm();
 
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // file is uploaded successfully
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }
+    public function actionIndex() {
+ if (\Yii::$app->user->isGuest) {
+            return $this->redirect("site/login");
+        }else{
+            return $this->redirect("sobre/index");
+        }
         return $this->render('index');
     }
 

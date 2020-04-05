@@ -48,14 +48,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            
             'titulo',
-            'subtitulo',
-            'texto:ntext',
-            'foto',
-            // 'data',
-            // 'contato',
-            // 'id_user',
+           [
+       'label' => 'Editar',
+       'format' => 'raw',
+       'value' => function ($model) {
+           return Html::a('Editar', ['update', 'id' => $model->id]);
+       }
+     ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

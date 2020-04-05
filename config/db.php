@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=mysql380.umbler.com;dbname=sbsaude',
-    'username' => 'dieos',
-    'password' => 'di140984',
+    'dsn' => 'mysql:host=localhost;dbname=sbsaude',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
 ];
 //return [

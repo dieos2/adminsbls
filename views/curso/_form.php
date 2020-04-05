@@ -16,13 +16,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'subtitulo')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'objetivo')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'publicoAlvo')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'cargahoraria')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'texto')->textarea(['rows' => 6]) ?>
 
-  
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

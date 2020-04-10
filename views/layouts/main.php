@@ -414,7 +414,13 @@ HeadAsset::register($this);
   <script src="/js/Chart.extension.js"></script>
   <!-- Argon JS -->
   <script src="/js/argon.js?v=1.2.0"></script>
+  <script src="/js/ckeditor/ckeditor.js" type="text/javascript"></script>
 </body>
-
+  <script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace( 'curso-texto' );
+                CKEDITOR.replace( 'sobre-texto' );
+            </script>
 </html>
 <?php $this->endPage() ?>

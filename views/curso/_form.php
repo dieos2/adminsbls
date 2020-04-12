@@ -10,12 +10,12 @@ use yii\widgets\ActiveForm;
 
 <div class="curso-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'subtitulo')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'foto')->fileInput() ?>
     <?= $form->field($model, 'objetivo')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'publicoAlvo')->textInput(['maxlength' => true]) ?>

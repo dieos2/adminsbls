@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\User;
+use app\models\UploadForm;
+use yii\web\UploadedFile;
 
 /**
  * CursoController implements the CRUD actions for Curso model.
@@ -64,9 +66,13 @@ class CursoController extends Controller
         $model = new Curso();
 
         if ($model->load(Yii::$app->request->post()) ) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
             $model->id_user = User::findByUsername(Yii::$app->user->identity->username)->id;
             $model->status = 1;
-           $model->save() ;
+           if ($modelUpload->upload()) {
+            $model->save() ;
+           }
                    return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -84,9 +90,16 @@ class CursoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+ $modelUpload = new UploadForm();
+         if ($model->load(Yii::$app->request->post()) ) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
+            
+           if ($modelUpload->upload()) {
+            $model->save() ;
+            return $this->redirect(['index', 'id' => $model->id]);
+           }
+                   
         } else {
             return $this->render('update', [
                 'model' => $model,

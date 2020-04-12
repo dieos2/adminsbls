@@ -89,9 +89,15 @@ class AgendaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+ $modelUpload = new UploadForm();
+        if ($model->load(Yii::$app->request->post()) ) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
+        
+           if ($modelUpload->upload()) {
+            $model->save() ;
+           }
+                   return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

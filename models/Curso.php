@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $titulo
  * @property string $subtitulo
+ * @property string $foto
  * @property string $objetivo
  * @property string $publicoAlvo
  * @property string $cargahoraria
@@ -37,15 +38,15 @@ class Curso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'objetivo', 'publicoAlvo', 'cargahoraria', 'texto', 'id_user', 'status'], 'required'],
+            [['titulo', 'foto', 'objetivo', 'publicoAlvo', 'cargahoraria', 'texto', 'id_user', 'status'], 'required'],
             [['texto'], 'string'],
             [['data'], 'safe'],
             [['id_user', 'status'], 'integer'],
             [['titulo'], 'string', 'max' => 300],
             [['subtitulo'], 'string', 'max' => 60],
+            [['foto', 'cargahoraria'], 'string', 'max' => 100],
             [['objetivo'], 'string', 'max' => 500],
             [['publicoAlvo'], 'string', 'max' => 50],
-            [['cargahoraria'], 'string', 'max' => 100],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => Perfil::className(), 'targetAttribute' => ['id_user' => 'id']],
             [['status'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status' => 'id']],
         ];
@@ -60,6 +61,7 @@ class Curso extends \yii\db\ActiveRecord
             'id' => 'ID',
             'titulo' => 'Titulo',
             'subtitulo' => 'Subtitulo',
+            'foto' => 'Foto',
             'objetivo' => 'Objetivo',
             'publicoAlvo' => 'Publico Alvo',
             'cargahoraria' => 'Cargahoraria',

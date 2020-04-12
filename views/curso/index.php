@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
        }
      ],
             'subtitulo',
-            'texto:ntext',
+            
             'data',
             // 'id_user',
             // 'status',

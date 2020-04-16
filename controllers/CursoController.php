@@ -89,22 +89,25 @@ class CursoController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+         $model = $this->findModel($id);
+        $modelFoto = $model->foto;
  $modelUpload = new UploadForm();
-         if ($model->load(Yii::$app->request->post()) ) {
-           $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
-            if($modelUpload->imageFile->baseName != null){
-            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;}
-            else{
-                 $model->save() ;
-           }
-           
-           if ($modelUpload->upload()) {
+       if ($model->load(Yii::$app->request->post()) ) {
+             $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
+            if($modelUpload->imageFile != null){
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
+             if ($modelUpload->upload()) {
             $model->save() ;
+             return $this->redirect(['index', 'id' => $model->id]);
+                }
+            }
+            else{
+               $model->foto =  $modelFoto;
+               $model->save();
+                  return $this->redirect(['index', 'id' => $model->id]);
            }
-            return $this->redirect(['index', 'id' => $model->id]);
            
-                   
+          
         } else {
             return $this->render('update', [
                 'model' => $model,

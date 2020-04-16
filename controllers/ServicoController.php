@@ -96,10 +96,12 @@ class ServicoController extends Controller
             $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;}
             else{
                  $model->save() ;
+                  return $this->redirect(['index', 'id' => $model->id]);
            }
            
            if ($modelUpload->upload()) {
             $model->save() ;
+             return $this->redirect(['index', 'id' => $model->id]);
            }
         } else {
             return $this->render('update', [

@@ -64,7 +64,7 @@ class CursoController extends Controller
     public function actionCreate()
     {
         $model = new Curso();
-
+ $modelUpload = new UploadForm();
         if ($model->load(Yii::$app->request->post()) ) {
             $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
             $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;

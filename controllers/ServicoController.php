@@ -8,7 +8,9 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\UploadForm;
+use yii\web\UploadedFile;
+use app\models\User;
 /**
  * ServicoController implements the CRUD actions for Servico model.
  */
@@ -61,9 +63,16 @@ class ServicoController extends Controller
     public function actionCreate()
     {
         $model = new Servico();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+ $modelUpload = new UploadForm();
+        if ($model->load(Yii::$app->request->post()) ) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
+            $model->id_user = User::findByUsername(Yii::$app->user->identity->username)->id;
+            $model->status = 1;
+           if ($modelUpload->upload()) {
+            $model->save() ;
+           }
+                   return $this->redirect(['index', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -80,9 +89,15 @@ class ServicoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+ $modelUpload = new UploadForm();
+       if ($model->load(Yii::$app->request->post()) ) {
+            $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
+            
+           if ($modelUpload->upload()) {
+            $model->save() ;
+            return $this->redirect(['index', 'id' => $model->id]);
+           }
         } else {
             return $this->render('update', [
                 'model' => $model,

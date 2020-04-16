@@ -92,8 +92,12 @@ class AgendaController extends Controller
  $modelUpload = new UploadForm();
         if ($model->load(Yii::$app->request->post()) ) {
             $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
-            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
-        
+            if($modelUpload->imageFile->baseName != null){
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;}
+            else{
+                 $model->save() ;
+           }
+           
            if ($modelUpload->upload()) {
             $model->save() ;
            }

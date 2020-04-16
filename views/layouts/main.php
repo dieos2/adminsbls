@@ -421,7 +421,8 @@ HeadAsset::register($this);
                 // instance, using default configuration.
                 CKEDITOR.replace( 'curso-texto' );
                 CKEDITOR.replace( 'sobre-texto' );
-                  CKEDITOR.replace( 'servico-texto' );
+                CKEDITOR.replace( 'servico-texto' );
+                CKEDITOR.replace( 'curso-objetivo' );
             </script>
 </html>
 <?php $this->endPage() ?>

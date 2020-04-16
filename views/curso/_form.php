@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'subtitulo')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'foto')->fileInput() ?>
-    <?= $form->field($model, 'objetivo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'objetivo')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'publicoAlvo')->textInput(['maxlength' => true]) ?>
 

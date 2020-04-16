@@ -39,13 +39,12 @@ class Curso extends \yii\db\ActiveRecord
     {
         return [
             [['titulo', 'foto', 'objetivo', 'publicoAlvo', 'cargahoraria', 'texto', 'id_user', 'status'], 'required'],
-            [['texto'], 'string'],
+            [['objetivo', 'texto'], 'string'],
             [['data'], 'safe'],
             [['id_user', 'status'], 'integer'],
             [['titulo'], 'string', 'max' => 300],
             [['subtitulo'], 'string', 'max' => 60],
             [['foto', 'cargahoraria'], 'string', 'max' => 100],
-            [['objetivo'], 'string', 'max' => 500],
             [['publicoAlvo'], 'string', 'max' => 50],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => Perfil::className(), 'targetAttribute' => ['id_user' => 'id']],
             [['status'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status' => 'id']],

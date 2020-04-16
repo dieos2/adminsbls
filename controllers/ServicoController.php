@@ -92,7 +92,7 @@ class ServicoController extends Controller
  $modelUpload = new UploadForm();
        if ($model->load(Yii::$app->request->post()) ) {
              $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
-            if($modelUpload != null){
+            if($modelUpload->imageFile != null){
             $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;}
             else{
                  $model->save() ;

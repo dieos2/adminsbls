@@ -66,12 +66,9 @@ class ServicoController extends Controller
  $modelUpload = new UploadForm();
         if ($model->load(Yii::$app->request->post()) ) {
             $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
-            if($modelUpload->imageFile->baseName != null){
-            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;}
-            else{
-                 $model->save() ;
-           }
-           
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
+            $model->id_user = User::findByUsername(Yii::$app->user->identity->username)->id;
+            $model->status = 1;
            if ($modelUpload->upload()) {
             $model->save() ;
            }
@@ -94,12 +91,15 @@ class ServicoController extends Controller
         $model = $this->findModel($id);
  $modelUpload = new UploadForm();
        if ($model->load(Yii::$app->request->post()) ) {
-            $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
-            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;
-            
+             $modelUpload->imageFile = UploadedFile::getInstance($model, 'foto');
+            if($modelUpload->imageFile->baseName != null){
+            $model->foto = $modelUpload->imageFile->baseName . '.' . $modelUpload->imageFile->extension;}
+            else{
+                 $model->save() ;
+           }
+           
            if ($modelUpload->upload()) {
             $model->save() ;
-            return $this->redirect(['index', 'id' => $model->id]);
            }
         } else {
             return $this->render('update', [

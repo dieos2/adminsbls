@@ -23,6 +23,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'cargahoraria')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'texto')->textarea(['rows' => 6]) ?>
+      
+            <?= $form->field($model, 'online')->textInput() ?>
 
 
 

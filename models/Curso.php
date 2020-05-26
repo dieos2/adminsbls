@@ -18,6 +18,7 @@ use Yii;
  * @property string $data
  * @property integer $id_user
  * @property integer $status
+ * @property integer $online
  *
  * @property Perfil $idUser
  * @property Status $status0
@@ -41,7 +42,7 @@ class Curso extends \yii\db\ActiveRecord
             [['titulo', 'foto', 'objetivo', 'publicoAlvo', 'cargahoraria', 'texto', 'id_user', 'status'], 'required'],
             [['objetivo', 'texto'], 'string'],
             [['data'], 'safe'],
-            [['id_user', 'status'], 'integer'],
+            [['id_user', 'status', 'online'], 'integer'],
             [['titulo'], 'string', 'max' => 300],
             [['subtitulo'], 'string', 'max' => 60],
             [['foto', 'cargahoraria'], 'string', 'max' => 100],
@@ -68,6 +69,7 @@ class Curso extends \yii\db\ActiveRecord
             'data' => 'Data',
             'id_user' => 'Id User',
             'status' => 'Status',
+            'online' => 'Online',
         ];
     }
 
